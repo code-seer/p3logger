@@ -3,6 +3,8 @@
 
 # upper-bound on the number of executed lines, in order to guard against
 # infinite loops
+from . import encoder
+
 MAX_EXECUTED_LINES = 200
 
 
@@ -13,8 +15,6 @@ def set_max_executed_lines(m):
 
 import sys
 import bdb  # the KEY import here!
-import os
-import re
 import traceback
 
 # try:
@@ -23,7 +23,6 @@ import traceback
 #     from io import StringIO ## for Python 3
 import io
 
-import encoder
 
 IGNORE_VARS = set(('__stdout__', '__builtins__', '__name__', '__exception__'))
 
@@ -271,29 +270,39 @@ class PGLogger(bdb.Bdb):
 
         # for e in self.trace: print e
 
-        self.finalizer_func(self.trace)
+        return self.finalizer_func(self.trace)
 
 
 # the MAIN meaty function!!!
 def exec_script_str(script_str, finalizer_func, ignore_id=False):
     logger = PGLogger(finalizer_func, ignore_id)
     logger._runscript(script_str)
-    logger.finalize()
+    return logger.finalize()
 
 
-def exec_file_and_pretty_print(user_code_input):
-    import json
+# def pretty_print(output_lst):
+#     import json
+#     with open("trace.json", 'w') as out:
+#         json.dump({"trace": output_lst}, out)
+#
+# def exec_file_and_pretty_print(user_code_input):
+
 
     # if not os.path.exists(user_code_input):
     #     print('Error:', user_code_input, 'does not exist')
     #     sys.exit(1)
 
-    def pretty_print(output_lst):
-        with open("trace.json", 'w') as out:
-            json.dump({"trace": output_lst}, out)
+
 
     # exec_script_str(open(user_code_input).read(), pretty_print)
-    exec_script_str(user_code_input, pretty_print)
+
+
+def finalizer_callback(output):
+    return {"trace": output}
+
+
+def run_logger(user_code_input):
+    return exec_script_str(user_code_input, finalizer_callback)
 
 
 if __name__ == '__main__':
@@ -313,4 +322,4 @@ randomNums = {'a': 1, 'b': 2}
 
 print('Hi ' + fullName)
 """
-    logger.exec_file_and_pretty_print(user_code)
+    # logger.exec_file_and_pretty_print(user_code)
