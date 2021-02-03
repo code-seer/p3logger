@@ -1,8 +1,6 @@
 # LearNet Software
-# Based on Python Logger by Philip J. Guo
+import json
 
-# upper-bound on the number of executed lines, in order to guard against
-# infinite loops
 from . import encoder
 
 MAX_EXECUTED_LINES = 200
@@ -14,7 +12,7 @@ def set_max_executed_lines(m):
 
 
 import sys
-import bdb  # the KEY import here!
+import bdb
 import traceback
 
 # try:
@@ -129,7 +127,6 @@ class PGLogger(bdb.Bdb):
     def interaction(self, frame, traceback, event_type):
         self.setup(frame, traceback)
         tos = self.stack[self.curindex]
-        print(tos[0])
         lineno = tos[1]
 
         # each element is a pair of (function name, ENCODED locals dict)
@@ -280,24 +277,10 @@ def exec_script_str(script_str, finalizer_func, ignore_id=False):
     return logger.finalize()
 
 
-# def pretty_print(output_lst):
-#     import json
-#     with open("trace.json", 'w') as out:
-#         json.dump({"trace": output_lst}, out)
-#
-# def exec_file_and_pretty_print(user_code_input):
-
-
-    # if not os.path.exists(user_code_input):
-    #     print('Error:', user_code_input, 'does not exist')
-    #     sys.exit(1)
-
-
-
-    # exec_script_str(open(user_code_input).read(), pretty_print)
-
 
 def finalizer_callback(output):
+    with open("trace.json", 'w') as out:
+            json.dump({"trace": output}, out)
     return {"trace": output}
 
 
