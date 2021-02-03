@@ -47,7 +47,7 @@ def encode_heap(encoded_globals):
     for k,v in encoded_globals.items():
         if type(v) == list:
             if len(v) > 2 and v[0] in types:
-                heap[v[1]] = v[2:]
+                heap[str(v[1])] = v[2:]
                 modified_globals[k] = ["REF", v[1]]
         else:
             modified_globals[k] = v

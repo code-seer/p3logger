@@ -1,55 +1,38 @@
 {
   "trace": [
     {
+      "line": 1,
       "event": "step_line",
       "func_name": "<module>",
       "globals": {},
       "heap": {},
-      "line": 1,
       "stack_locals": [],
       "stdout": ""
     },
     {
+      "line": 2,
       "event": "step_line",
       "func_name": "<module>",
       "globals": {
         "input": "Sideshow,Bob,1972,4,1,male"
       },
       "heap": {},
-      "line": 2,
       "stack_locals": [],
       "stdout": ""
     },
     {
-      "event": "step_line",
-      "func_name": "<module>",
-      "globals": {
-        "input": "Sideshow,Bob,1972,4,1,male",
-        "tokens": [
-          "LIST",
-          1,
-          "Sideshow",
-          "Bob",
-          "1972",
-          "4",
-          "1",
-          "male"
-        ]
-      },
-      "heap": {},
       "line": 3,
-      "stack_locals": [],
-      "stdout": ""
-    },
-    {
       "event": "step_line",
       "func_name": "<module>",
       "globals": {
-        "firstName": "Sideshow",
         "input": "Sideshow,Bob,1972,4,1,male",
         "tokens": [
-          "LIST",
-          1,
+          "REF",
+          1
+        ]
+      },
+      "heap": {
+        "1": [
           "Sideshow",
           "Bob",
           "1972",
@@ -58,21 +41,23 @@
           "male"
         ]
       },
-      "heap": {},
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
       "line": 4,
-      "stack_locals": [],
-      "stdout": ""
-    },
-    {
       "event": "step_line",
       "func_name": "<module>",
       "globals": {
-        "firstName": "Sideshow",
         "input": "Sideshow,Bob,1972,4,1,male",
-        "lastName": "Bob",
         "tokens": [
-          "LIST",
-          1,
+          "REF",
+          1
+        ],
+        "firstName": "Sideshow"
+      },
+      "heap": {
+        "1": [
           "Sideshow",
           "Bob",
           "1972",
@@ -81,28 +66,24 @@
           "male"
         ]
       },
-      "heap": {},
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
       "line": 5,
-      "stack_locals": [],
-      "stdout": ""
-    },
-    {
       "event": "step_line",
       "func_name": "<module>",
       "globals": {
-        "birthdate": [
-          "TUPLE",
-          2,
-          1972,
-          4,
+        "input": "Sideshow,Bob,1972,4,1,male",
+        "tokens": [
+          "REF",
           1
         ],
         "firstName": "Sideshow",
-        "input": "Sideshow,Bob,1972,4,1,male",
-        "lastName": "Bob",
-        "tokens": [
-          "LIST",
-          1,
+        "lastName": "Bob"
+      },
+      "heap": {
+        "1": [
           "Sideshow",
           "Bob",
           "1972",
@@ -111,103 +92,151 @@
           "male"
         ]
       },
-      "heap": {},
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
       "line": 6,
-      "stack_locals": [],
-      "stdout": ""
-    },
-    {
       "event": "step_line",
       "func_name": "<module>",
       "globals": {
-        "birthdate": [
-          "TUPLE",
-          2,
-          1972,
-          4,
+        "input": "Sideshow,Bob,1972,4,1,male",
+        "tokens": [
+          "REF",
           1
         ],
         "firstName": "Sideshow",
-        "input": "Sideshow,Bob,1972,4,1,male",
-        "isMale": true,
         "lastName": "Bob",
-        "tokens": [
-          "LIST",
-          1,
+        "birthdate": [
+          "REF",
+          2
+        ]
+      },
+      "heap": {
+        "1": [
           "Sideshow",
           "Bob",
           "1972",
           "4",
           "1",
           "male"
+        ],
+        "2": [
+          1972,
+          4,
+          1
         ]
       },
-      "heap": {},
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
       "line": 7,
-      "stack_locals": [],
-      "stdout": ""
-    },
-    {
       "event": "step_line",
       "func_name": "<module>",
       "globals": {
-        "birthdate": [
-          "TUPLE",
-          2,
-          1972,
-          4,
+        "input": "Sideshow,Bob,1972,4,1,male",
+        "tokens": [
+          "REF",
           1
         ],
         "firstName": "Sideshow",
-        "fullName": "Sideshow Bob",
-        "input": "Sideshow,Bob,1972,4,1,male",
-        "isMale": true,
         "lastName": "Bob",
-        "tokens": [
-          "LIST",
-          1,
+        "birthdate": [
+          "REF",
+          2
+        ],
+        "isMale": true
+      },
+      "heap": {
+        "1": [
           "Sideshow",
           "Bob",
           "1972",
           "4",
           "1",
           "male"
+        ],
+        "2": [
+          1972,
+          4,
+          1
         ]
       },
-      "heap": {},
-      "line": 9,
       "stack_locals": [],
       "stdout": ""
     },
     {
+      "line": 9,
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {
+        "input": "Sideshow,Bob,1972,4,1,male",
+        "tokens": [
+          "REF",
+          1
+        ],
+        "firstName": "Sideshow",
+        "lastName": "Bob",
+        "birthdate": [
+          "REF",
+          2
+        ],
+        "isMale": true,
+        "fullName": "Sideshow Bob"
+      },
+      "heap": {
+        "1": [
+          "Sideshow",
+          "Bob",
+          "1972",
+          "4",
+          "1",
+          "male"
+        ],
+        "2": [
+          1972,
+          4,
+          1
+        ]
+      },
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "line": 9,
       "event": "return",
       "func_name": "<module>",
       "globals": {
-        "birthdate": [
-          "TUPLE",
-          2,
-          1972,
-          4,
+        "input": "Sideshow,Bob,1972,4,1,male",
+        "tokens": [
+          "REF",
           1
         ],
         "firstName": "Sideshow",
-        "fullName": "Sideshow Bob",
-        "input": "Sideshow,Bob,1972,4,1,male",
-        "isMale": true,
         "lastName": "Bob",
-        "tokens": [
-          "LIST",
-          1,
+        "birthdate": [
+          "REF",
+          2
+        ],
+        "isMale": true,
+        "fullName": "Sideshow Bob"
+      },
+      "heap": {
+        "1": [
           "Sideshow",
           "Bob",
           "1972",
           "4",
           "1",
           "male"
+        ],
+        "2": [
+          1972,
+          4,
+          1
         ]
       },
-      "heap": {},
-      "line": 9,
       "stack_locals": [],
       "stdout": "Hi Sideshow Bob\n"
     }

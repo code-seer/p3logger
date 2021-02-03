@@ -2,7 +2,7 @@ import json
 
 from src.app.logger import pylogger
 
-user_code = """input = 'Sideshow,Bob,1972,4,1,male'
+tokenizer_code = """input = 'Sideshow,Bob,1972,4,1,male'
 tokens = input.split(',')
 firstName = tokens[0]
 lastName = tokens[1]
@@ -13,12 +13,35 @@ fullName = firstName + ' ' + lastName
 print('Hi ' + fullName)
 """
 
+oop_code = """class A:
+    x = 1
+    y = 'hello'
 
-def test_baseline():
+class B:
+    z = 'bye'
+
+class C(A,B):
+    def salutation(self):
+        return '%d %s %s' % (self.x, self.y, self.z)
+
+inst = C()
+print(inst.salutation())
+inst.x = 100
+print(inst.salutation())"""
+
+
+def assert_response(expected_file_name, user_code):
     data = None
-    with open('test/tokenizer_trace.json', 'r') as f:
+    with open(expected_file_name, 'r') as f:
         data = json.load(f)
     trace_data = pylogger.run_logger(user_code)
     assert data
     assert data == trace_data
 
+
+def test_baseline():
+    assert_response('test/tokenizer_trace.json', tokenizer_code)
+
+#
+# def test_oop():
+#     assert_response('test/oop_trace.json', oop_code)
