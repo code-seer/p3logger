@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 
-from src.app.logger import logger
+from src.app.logger import pylogger
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ fullName = firstName + ' ' + lastName
 
 print('Hi ' + fullName)
     """
-    return jsonify(logger.run_logger(user_code))
+    return jsonify(pylogger.run_logger(user_code))
 
 #     return 'Hello, World!'
 #

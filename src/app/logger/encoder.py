@@ -1,5 +1,4 @@
 # LearNet Software
-# Based on Python Logger by Philip J. Guo
 
 # Given an arbitrary piece of Python data, encode it in such a manner
 # that it can be later encoded into JSON.

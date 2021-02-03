@@ -1,6 +1,6 @@
 import json
 
-from src.app.logger import logger
+from src.app.logger import pylogger
 
 user_code = """input = 'Sideshow,Bob,1972,4,1,male'
 tokens = input.split(',')
@@ -18,7 +18,7 @@ def test_baseline():
     data = None
     with open('test/tokenizer_trace.json', 'r') as f:
         data = json.load(f)
-    trace_data = logger.run_logger(user_code)
+    trace_data = pylogger.run_logger(user_code)
     assert data
     assert data == trace_data
 

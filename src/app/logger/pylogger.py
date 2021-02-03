@@ -1,9 +1,14 @@
 # LearNet Software
-import json
+
+import sys
+import bdb
+import traceback
+import io
 
 from . import encoder
 
-MAX_EXECUTED_LINES = 200
+MAX_EXECUTED_LINES = 1000
+IGNORE_VARS = set(('__stdout__', '__builtins__', '__name__', '__exception__'))
 
 
 def set_max_executed_lines(m):
@@ -11,22 +16,9 @@ def set_max_executed_lines(m):
     MAX_EXECUTED_LINES = m
 
 
-import sys
-import bdb
-import traceback
-
-# try:
-#     from StringIO import StringIO ## for Python 2
-# except ImportError:
-#     from io import StringIO ## for Python 3
-import io
-
-
-IGNORE_VARS = set(('__stdout__', '__builtins__', '__name__', '__exception__'))
-
-
 def get_user_stdout(frame):
     return frame.f_globals.get('__stdout__').getvalue()
+
 
 def get_user_globals(frame):
     d = filter_var_dict(frame.f_globals)
@@ -48,7 +40,21 @@ def filter_var_dict(d):
     return ret
 
 
-class PGLogger(bdb.Bdb):
+def encode_heap(encoded_globals):
+    heap = {}
+    modified_globals = {}
+    types = ['LIST', 'TUPLE', 'SET','DICT']
+    for k,v in encoded_globals.items():
+        if type(v) == list:
+            if len(v) > 2 and v[0] in types:
+                heap[v[1]] = v[2:]
+                modified_globals[k] = ["REF", v[1]]
+        else:
+            modified_globals[k] = v
+    return modified_globals, heap
+
+
+class PyLogger(bdb.Bdb):
 
     def __init__(self, finalizer_func, ignore_id=False):
         bdb.Bdb.__init__(self)
@@ -95,7 +101,7 @@ class PGLogger(bdb.Bdb):
         if self._wait_for_mainpyfile:
             return
         if self.stop_here(frame):
-            self.interaction(frame, None, 'call')
+            self.process_stack_frame(frame, None, 'call')
 
     def user_line(self, frame):
         """This function is called when we stop or break at this line."""
@@ -104,12 +110,12 @@ class PGLogger(bdb.Bdb):
                     frame.f_lineno <= 0):
                 return
             self._wait_for_mainpyfile = 0
-        self.interaction(frame, None, 'step_line')
+        self.process_stack_frame(frame, None, 'step_line')
 
     def user_return(self, frame, return_value):
         """This function is called when a return trap is set here."""
         frame.f_locals['__return__'] = return_value
-        self.interaction(frame, None, 'return')
+        self.process_stack_frame(frame, None, 'return')
 
     def user_exception(self, frame, exc_info):
         exc_type, exc_value, exc_traceback = exc_info
@@ -120,11 +126,11 @@ class PGLogger(bdb.Bdb):
             exc_type_name = exc_type
         else:
             exc_type_name = exc_type.__name__
-        self.interaction(frame, exc_traceback, 'exception')
+        self.process_stack_frame(frame, exc_traceback, 'exception')
 
     # General interaction function
 
-    def interaction(self, frame, traceback, event_type):
+    def process_stack_frame(self, frame, traceback, event_type):
         self.setup(frame, traceback)
         tos = self.stack[self.curindex]
         lineno = tos[1]
@@ -160,15 +166,15 @@ class PGLogger(bdb.Bdb):
         # encode in a JSON-friendly format now, in order to prevent ill
         # effects of aliasing later down the line ...
         encoded_globals = {}
-        heap = {}
         for (k, v) in get_user_globals(tos[0]).items():
             encoded_globals[k] = encoder.encode(v, self.ignore_id)
+        encoded_globals, heap = encode_heap(encoded_globals)
 
         trace_entry = dict(line=lineno,
                            event=event_type,
                            func_name=tos[0].f_code.co_name,
                            globals=encoded_globals,
-                           heap={},
+                           heap=heap,
                            stack_locals=encoded_stack_locals,
                            stdout=get_user_stdout(tos[0]))
 
@@ -187,7 +193,7 @@ class PGLogger(bdb.Bdb):
 
         self.forget()
 
-    def _runscript(self, script_str):
+    def run_script(self, script_str):
         # When bdb sets tracing, a number of call and line events happens
         # BEFORE debugger even reaches user's code (and the exact sequence of
         # events depends on python version). So we take special measures to
@@ -237,11 +243,11 @@ class PGLogger(bdb.Bdb):
 
             self.trace.append(trace_entry)
             self.finalize()
-            sys.exit(0)  # need to forceably STOP execution
+            sys.exit(0)  # Forcibly stop execution
 
     def force_terminate(self):
         self.finalize()
-        sys.exit(0)  # need to forceably STOP execution
+        sys.exit(0)  # Forcibly stop execution
 
     def finalize(self):
         sys.stdout = sys.__stdout__
@@ -264,45 +270,17 @@ class PGLogger(bdb.Bdb):
             res.pop()
 
         self.trace = res
-
-        # for e in self.trace: print e
-
         return self.finalizer_func(self.trace)
 
 
-# the MAIN meaty function!!!
-def exec_script_str(script_str, finalizer_func, ignore_id=False):
-    logger = PGLogger(finalizer_func, ignore_id)
-    logger._runscript(script_str)
-    return logger.finalize()
-
-
-
 def finalizer_callback(output):
-    with open("trace.json", 'w') as out:
-            json.dump({"trace": output}, out)
+    import json
+    with open("trace.json", "w") as f:
+        json.dump({"trace": output}, f)
     return {"trace": output}
 
 
-def run_logger(user_code_input):
-    return exec_script_str(user_code_input, finalizer_callback)
-
-
-if __name__ == '__main__':
-    # need this round-about import to get __builtins__ to work :0
-    import logger
-
-    user_code = """input = 'John,Doe,1984,4,1,male'
-
-tokens = input.split(',')
-randomVals = [1, 2, 3, 4, 5]
-firstName = tokens[0]
-lastName = tokens[1]
-birthdate = (int(tokens[2]), int(tokens[3]), int(tokens[4]))
-isMale = (tokens[5] == 'male')
-fullName = firstName + ' ' + lastName
-randomNums = {'a': 1, 'b': 2}
-
-print('Hi ' + fullName)
-"""
-    # logger.exec_file_and_pretty_print(user_code)
+def run_logger(user_code_input, ignore_id=False):
+    pyl = PyLogger(finalizer_callback, ignore_id)
+    pyl.run_script(user_code_input)
+    return pyl.finalize()
