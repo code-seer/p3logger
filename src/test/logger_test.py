@@ -34,13 +34,13 @@ def assert_response(expected_file_name, user_code):
     data = None
     with open(expected_file_name, 'r') as f:
         data = json.load(f)
-    trace_data = pylogger.run_logger(user_code)
+    trace_data = pylogger.run_logger(user_code.encode("utf-8"))
     assert data
     assert data == trace_data
 
 
 def test_baseline():
-    assert_response('test/tokenizer_trace.json', tokenizer_code)
+    assert_response('tokenizer_trace.json', tokenizer_code)
 
 #
 # def test_oop():

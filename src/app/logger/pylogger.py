@@ -3,7 +3,12 @@
 import sys
 import bdb
 import traceback
-import io
+PYTHON_VERSION = sys.version_info[0]
+
+if PYTHON_VERSION < 3:
+    import cStringIO as io
+else:
+    import io
 
 from . import encoder
 

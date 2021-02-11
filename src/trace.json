@@ -1,0 +1,1 @@
+{"trace": [{"line": 1, "event": "step_line", "func_name": "<module>", "globals": {}, "heap": {}, "stack_locals": [], "stdout": ""}, {"line": 2, "event": "step_line", "func_name": "<module>", "globals": {"input": "Sideshow,Bob,1972,4,1,male"}, "heap": {}, "stack_locals": [], "stdout": ""}, {"event": "uncaught_exception", "exception_msg": "Unknown error"}]}

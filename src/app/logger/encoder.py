@@ -28,17 +28,14 @@ real_to_small_IDs = {}
 cur_small_id = 1
 
 import re, types
-
 typeRE = re.compile("<type '(.*)'>")
-
-
-# classRE = re.compile("<class '(.*)'>")
+classRE = re.compile("<class '(.*)'>")
 
 def encode(dat, ignore_id=False):
     def encode_helper(dat, compound_obj_ids):
         # primitive type
         if dat is None or \
-                type(dat) in (int, float, str, bool):
+                type(dat) in (int, long, float, str, bool):
             return dat
         # compound type
         else:
@@ -61,26 +58,23 @@ def encode(dat, ignore_id=False):
 
             my_small_id = real_to_small_IDs[my_id]
 
-            if isinstance(typ, list):
+            if typ == list:
                 ret = ['LIST', my_small_id]
                 for e in dat: ret.append(encode_helper(e, new_compound_obj_ids))
-            elif isinstance(typ, tuple):
+            elif typ == tuple:
                 ret = ['TUPLE', my_small_id]
                 for e in dat: ret.append(encode_helper(e, new_compound_obj_ids))
-            elif isinstance(typ, set):
+            elif typ == set:
                 ret = ['SET', my_small_id]
                 for e in dat: ret.append(encode_helper(e, new_compound_obj_ids))
-            elif isinstance(typ, dict):
+            elif typ == dict:
                 ret = ['DICT', my_small_id]
-                for (k, v) in dat.items():
+                for (k,v) in dat.iteritems():
                     # don't display some built-in locals ...
                     if k not in ('__module__', '__return__'):
                         ret.append([encode_helper(k, new_compound_obj_ids), encode_helper(v, new_compound_obj_ids)])
-            # TODO: in Python 2, the following instance check checks to see if the type is a user-defined class.
-            #   In Python 3, all class must inherit from object so type(x) ends up being x.__class__
-            # elif typ in (types.InstanceType, types.ClassType, types.TypeType)
-
-            elif '__class__' in typ:
+            elif typ in (types.InstanceType, types.ClassType, types.TypeType) or \
+                    classRE.match(str(typ)):
                 # ugh, classRE match is a bit of a hack :(
                 if typ == types.InstanceType or classRE.match(str(typ)):
                     ret = ['INSTANCE', dat.__class__.__name__, my_small_id]
@@ -94,8 +88,7 @@ def encode(dat, ignore_id=False):
                                      if e not in ('__doc__', '__module__', '__return__')])
 
                 for attr in user_attrs:
-                    ret.append([encode_helper(attr, new_compound_obj_ids),
-                                encode_helper(dat.__dict__[attr], new_compound_obj_ids)])
+                    ret.append([encode_helper(attr, new_compound_obj_ids), encode_helper(dat.__dict__[attr], new_compound_obj_ids)])
             else:
                 typeStr = str(typ)
                 m = typeRE.match(typeStr)
@@ -105,3 +98,4 @@ def encode(dat, ignore_id=False):
             return ret
 
     return encode_helper(dat, set())
+
