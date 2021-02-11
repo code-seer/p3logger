@@ -49,14 +49,25 @@ def filter_var_dict(d):
 
 
 def encode_heap(encoded_globals):
+    """Encode global variables as heap objects by adding the REF key to
+    compound objects and keeping primitives the same"""
     heap = {}
     modified_globals = {}
-    types = ['LIST', 'TUPLE', 'SET','DICT']
-    for k,v in encoded_globals.items():
+    for k, v in encoded_globals.items():
         if type(v) == list:
-            if len(v) > 2 and v[0] in types:
-                heap[str(v[1])] = v[2:]
-                modified_globals[k] = ["REF", v[1]]
+            heap_val = None
+            heap_key = None
+            if v[0] == 'CLASS' or v[0] == 'INSTANCE':
+                heap_key = str(v[2])
+                heap_val = [v[0]]
+                heap_val.extend(v[2:])
+                modified_globals[k] = ["REF", int(heap_key)]
+            else:
+                heap_key = str(v[1])
+                heap_val = [v[0]]
+                heap_val.extend(v[2:])
+            modified_globals[k] = ["REF", int(heap_key)]
+            heap[heap_key] = heap_val
         else:
             modified_globals[k] = v
     return modified_globals, heap
@@ -184,6 +195,7 @@ class PyLogger(bdb.Bdb):
                            event=event_type,
                            func_name=tos[0].f_code.co_name,
                            globals=encoded_globals,
+                           ordered_globals=sorted(encoded_globals.keys()),
                            heap=heap,
                            stack_locals=encoded_stack_locals,
                            stdout=get_user_stdout(tos[0]))
@@ -284,9 +296,6 @@ class PyLogger(bdb.Bdb):
 
 
 def finalizer_callback(output):
-    import json
-    with open("trace.json", "w") as f:
-        json.dump({"trace": output}, f)
     return {"trace": output}
 
 
