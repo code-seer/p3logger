@@ -59,8 +59,8 @@ def encode_heap(encoded_globals):
             heap_key = None
             if v[0] == 'CLASS' or v[0] == 'INSTANCE':
                 heap_key = str(v[2])
-                heap_val = [v[0]]
-                heap_val.extend(v[2:])
+                heap_val = [v[0], v[1]]
+                heap_val.extend(v[3:])
                 modified_globals[k] = ["REF", int(heap_key)]
             else:
                 heap_key = str(v[1])
@@ -70,8 +70,52 @@ def encode_heap(encoded_globals):
             heap[heap_key] = heap_val
         else:
             modified_globals[k] = v
+    # print heap
+    # print modified_globals
     return modified_globals, heap
 
+
+def frame_debugger(frame, event_type):
+    if frame:
+        print "----------------------------------Frame-------------------------------------------------"
+        print "Line Number: ", frame.f_lineno
+        print "name: ", frame.f_code.co_name
+        print "Event Type: ", event_type
+        print "Caller: ", frame.f_back.f_lineno, frame.f_back.f_code.co_name
+        # print "co_name: ", frame.f_code.co_name
+        # print "co_argcount: ", frame.f_code.co_argcount
+        # print "co_cellvars: ", frame.f_code.co_cellvars
+        # print "co_consts: ", frame.f_code.co_consts
+        # print "co_names: ", frame.f_code.co_names
+        # print "co_nlocals: ", frame.f_code.co_nlocals
+        # print "co_stacksize: ", frame.f_code.co_stacksize
+        # print "co_varnames: ", frame.f_code.co_varnames
+        global_vars = get_user_globals(frame)
+        print "Global:"
+        print global_vars
+        for k,v in global_vars.items():
+            ret = []
+            if str(type(v)) == "<type \'instance\'>":
+                ret.append('INSTANCE')
+                ret.append(v.__class__.__name__)
+            elif str(type(v)) == "<type \'classobj\'>":
+                ret.append('CLASS')
+                ret.append(v.__name__)
+                superclass_names = [base.__name__ for base in v.__bases__]
+                ret.append(superclass_names)
+            print "Summary: ", ret
+
+        # print "\ncaller:"
+        # print frame.f_back.items()
+        print "\nLocal:"
+        print get_user_locals(frame)
+        # print frame.f_trace.__name__
+        print "\n"
+        # print "Local __name__:"
+        # print frame.f_locals.get("__name__")
+        # print("\n")
+        # print "__builtins__ keys:"
+        # print frame.f_globals.get("__builtins__").keys()
 
 class PyLogger(bdb.Bdb):
 
@@ -190,7 +234,7 @@ class PyLogger(bdb.Bdb):
         for (k, v) in get_user_globals(tos[0]).items():
             encoded_globals[k] = self.encoder.encode(v, self.ignore_id)
         encoded_globals, heap = encode_heap(encoded_globals)
-
+        # frame_debugger(tos[0], event_type)
         trace_entry = dict(line=lineno,
                            event=event_type,
                            func_name=tos[0].f_code.co_name,
@@ -200,6 +244,7 @@ class PyLogger(bdb.Bdb):
                            stack_locals=encoded_stack_locals,
                            stdout=get_user_stdout(tos[0]))
 
+        # print trace_entry
         # if there's an exception, then record its info:
         if event_type == 'exception':
             # always check in f_locals

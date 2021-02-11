@@ -29,6 +29,19 @@ print(inst.salutation())
 inst.x = 100
 print(inst.salutation())"""
 
+oop_code2 = """class C:
+    var1 = 'a'
+    var2 = 'b'
+
+# class A:
+#     def __init__(self, param):
+#         this.x = 1
+#         this.y = 'hello' 
+#     class B:
+#         var1 = 1
+#         var2 = 2
+"""
+
 
 def assert_response(expected_file_name, user_code):
     data = None
@@ -41,17 +54,18 @@ def assert_response(expected_file_name, user_code):
     assert yaml.safe_load(data) == trace_data  # yaml strips away the unicode
 
 
-def test_oop():
-    assert_response('oop_trace.json', oop_code)
+# def test_oop():
+#     assert_response('oop_trace.json', oop_code)
 
 
 def test_baseline():
     assert_response('tokenizer_trace.json', tokenizer_code)
 
 
-def test_baseline_2():
-    assert_response('tokenizer_trace.json', tokenizer_code)
+# def test_baseline_2():
+#     assert_response('tokenizer_trace.json', tokenizer_code)
 
 
 
 
+# pylogger.run_logger(tokenizer_code)
