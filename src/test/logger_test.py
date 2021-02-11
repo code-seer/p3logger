@@ -1,5 +1,5 @@
 import json
-
+import yaml
 from src.app.logger import pylogger
 
 tokenizer_code = """input = 'Sideshow,Bob,1972,4,1,male'
@@ -33,15 +33,23 @@ print(inst.salutation())"""
 def assert_response(expected_file_name, user_code):
     data = None
     with open(expected_file_name, 'r') as f:
-        data = json.load(f)
-    trace_data = pylogger.run_logger(user_code.encode("utf-8"))
+        data = json.dumps(json.load(f))
+    trace_data = pylogger.run_logger(user_code)
     assert data
-    assert data == trace_data
+    assert yaml.safe_load(data) == trace_data  # yaml strips away the unicode
+
+#
+# def test_oop():
+#     assert_response('oop_trace.json', oop_code)
 
 
 def test_baseline():
     assert_response('tokenizer_trace.json', tokenizer_code)
 
-#
-# def test_oop():
-#     assert_response('test/oop_trace.json', oop_code)
+
+def test_baseline_2():
+    assert_response('tokenizer_trace.json', tokenizer_code)
+
+
+
+

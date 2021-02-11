@@ -3,6 +3,9 @@
 import sys
 import bdb
 import traceback
+
+from .encoder import Encoder
+
 PYTHON_VERSION = sys.version_info[0]
 
 if PYTHON_VERSION < 3:
@@ -82,6 +85,7 @@ class PyLogger(bdb.Bdb):
         self.stack = []
         self.curindex = 0
         self.curframe = None
+        self.encoder = Encoder()
 
     def reset(self):
         bdb.Bdb.reset(self)
@@ -160,10 +164,11 @@ class PyLogger(bdb.Bdb):
             # encode in a JSON-friendly format now, in order to prevent ill
             # effects of aliasing later down the line ...
             encoded_locals = {}
+            
             for (k, v) in get_user_locals(cur_frame).items():
                 # don't display some built-in locals ...
                 if k != '__module__':
-                    encoded_locals[k] = encoder.encode(v, self.ignore_id)
+                    encoded_locals[k] = self.encoder.encode(v, self.ignore_id)
 
             encoded_stack_locals.append((cur_name, encoded_locals))
             i -= 1
@@ -172,7 +177,7 @@ class PyLogger(bdb.Bdb):
         # effects of aliasing later down the line ...
         encoded_globals = {}
         for (k, v) in get_user_globals(tos[0]).items():
-            encoded_globals[k] = encoder.encode(v, self.ignore_id)
+            encoded_globals[k] = self.encoder.encode(v, self.ignore_id)
         encoded_globals, heap = encode_heap(encoded_globals)
 
         trace_entry = dict(line=lineno,
