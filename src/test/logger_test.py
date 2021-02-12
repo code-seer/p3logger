@@ -10,7 +10,7 @@ lastName = tokens[1]
 birthdate = (int(tokens[2]), int(tokens[3]), int(tokens[4]))
 isMale = (tokens[5] == 'male')
 
-print('Hi ' + firstName + ' ' + lastName)
+print('Hi ' + firstName + ' ' + lastName + 4)
 """
 
 oop_code = """class A:
@@ -68,4 +68,4 @@ def test_baseline():
 
 
 
-# pylogger.run_logger(tokenizer_code)
+test_baseline()

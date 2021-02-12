@@ -289,9 +289,8 @@ class PyLogger(bdb.Bdb):
 
         try:
             self.run(script_str, user_globals, user_globals)
-        # sys.exit ...
         except SystemExit:
-            sys.exit(0)
+            return
         except:
             traceback.print_exc()  # uncomment this to see the REAL exception msg
 
@@ -310,11 +309,10 @@ class PyLogger(bdb.Bdb):
 
             self.trace.append(trace_entry)
             self.finalize()
-            sys.exit(0)  # Forcibly stop execution
+            return
 
     def force_terminate(self):
         self.finalize()
-        sys.exit(0)  # Forcibly stop execution
 
     def finalize(self):
         sys.stdout = sys.__stdout__

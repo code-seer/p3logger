@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import base64
 
-from src.app.logger import pylogger
+from logger import pylogger
 
 app = Flask(__name__)
 
@@ -19,3 +19,7 @@ def user_code_logger():
         })
     except Exception as e:
         return jsonify(e.message), 500
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
