@@ -1,0 +1,112 @@
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUgKyA1KQ=="
+}
+
+<> 2021-02-11T194905.200.json
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUgKyA1KQ=="
+}
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUgKyA1KQ=="
+}
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUgKyA1KQ=="
+}
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUgKyA1KQ=="
+}
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUp"
+}
+
+<> 2021-02-11T184544.200.json
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUp"
+}
+
+<> 2021-02-11T184512.200.json
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUp"
+}
+
+<> 2021-02-11T184412.200.json
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUp"
+}
+
+<> 2021-02-11T182932.200.json
+
+###
+
+POST http://localhost:5000/visualizer
+Content-Type: application/json
+
+{
+  "py_version": 2.7,
+  "user_code": "aW5wdXQgPSAnSm9obixEb2UsMTk4NCw0LDEsbWFsZScKCnRva2VucyA9IGlucHV0LnNwbGl0KCcsJykKZmlyc3ROYW1lID0gdG9rZW5zWzBdCmxhc3ROYW1lID0gdG9rZW5zWzFdCmJpcnRoZGF0ZSA9IChpbnQodG9rZW5zWzJdKSwgaW50KHRva2Vuc1szXSksIGludCh0b2tlbnNbNF0pKQppc01hbGUgPSAodG9rZW5zWzVdID09ICdtYWxlJykKCnByaW50KCdIaSAnICsgZmlyc3ROYW1lICsgJyAnICsgbGFzdE5hbWUp"
+}
+
+<> 2021-02-11T180122.200.json
+
+###
+

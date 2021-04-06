@@ -1,0 +1,258 @@
+{
+  "trace": [
+    {
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {},
+      "heap": {},
+      "line": 1,
+      "ordered_globals": [],
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {
+        "input": "John,Doe,1984,4,1,male"
+      },
+      "heap": {},
+      "line": 3,
+      "ordered_globals": [
+        "input"
+      ],
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {
+        "input": "John,Doe,1984,4,1,male",
+        "tokens": [
+          "REF",
+          1
+        ]
+      },
+      "heap": {
+        "1": [
+          "LIST",
+          "John",
+          "Doe",
+          "1984",
+          "4",
+          "1",
+          "male"
+        ]
+      },
+      "line": 4,
+      "ordered_globals": [
+        "input",
+        "tokens"
+      ],
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {
+        "firstName": "John",
+        "input": "John,Doe,1984,4,1,male",
+        "tokens": [
+          "REF",
+          1
+        ]
+      },
+      "heap": {
+        "1": [
+          "LIST",
+          "John",
+          "Doe",
+          "1984",
+          "4",
+          "1",
+          "male"
+        ]
+      },
+      "line": 5,
+      "ordered_globals": [
+        "firstName",
+        "input",
+        "tokens"
+      ],
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {
+        "firstName": "John",
+        "input": "John,Doe,1984,4,1,male",
+        "lastName": "Doe",
+        "tokens": [
+          "REF",
+          1
+        ]
+      },
+      "heap": {
+        "1": [
+          "LIST",
+          "John",
+          "Doe",
+          "1984",
+          "4",
+          "1",
+          "male"
+        ]
+      },
+      "line": 6,
+      "ordered_globals": [
+        "firstName",
+        "input",
+        "lastName",
+        "tokens"
+      ],
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {
+        "birthdate": [
+          "REF",
+          2
+        ],
+        "firstName": "John",
+        "input": "John,Doe,1984,4,1,male",
+        "lastName": "Doe",
+        "tokens": [
+          "REF",
+          1
+        ]
+      },
+      "heap": {
+        "1": [
+          "LIST",
+          "John",
+          "Doe",
+          "1984",
+          "4",
+          "1",
+          "male"
+        ],
+        "2": [
+          "TUPLE",
+          1984,
+          4,
+          1
+        ]
+      },
+      "line": 7,
+      "ordered_globals": [
+        "birthdate",
+        "firstName",
+        "input",
+        "lastName",
+        "tokens"
+      ],
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "event": "step_line",
+      "func_name": "<module>",
+      "globals": {
+        "birthdate": [
+          "REF",
+          2
+        ],
+        "firstName": "John",
+        "input": "John,Doe,1984,4,1,male",
+        "isMale": true,
+        "lastName": "Doe",
+        "tokens": [
+          "REF",
+          1
+        ]
+      },
+      "heap": {
+        "1": [
+          "LIST",
+          "John",
+          "Doe",
+          "1984",
+          "4",
+          "1",
+          "male"
+        ],
+        "2": [
+          "TUPLE",
+          1984,
+          4,
+          1
+        ]
+      },
+      "line": 9,
+      "ordered_globals": [
+        "birthdate",
+        "firstName",
+        "input",
+        "isMale",
+        "lastName",
+        "tokens"
+      ],
+      "stack_locals": [],
+      "stdout": ""
+    },
+    {
+      "event": "exception",
+      "exception_msg": "TypeError: cannot concatenate 'str' and 'int' objects",
+      "func_name": "<module>",
+      "globals": {
+        "birthdate": [
+          "REF",
+          2
+        ],
+        "firstName": "John",
+        "input": "John,Doe,1984,4,1,male",
+        "isMale": true,
+        "lastName": "Doe",
+        "tokens": [
+          "REF",
+          1
+        ]
+      },
+      "heap": {
+        "1": [
+          "LIST",
+          "John",
+          "Doe",
+          "1984",
+          "4",
+          "1",
+          "male"
+        ],
+        "2": [
+          "TUPLE",
+          1984,
+          4,
+          1
+        ]
+      },
+      "line": 9,
+      "ordered_globals": [
+        "birthdate",
+        "firstName",
+        "input",
+        "isMale",
+        "lastName",
+        "tokens"
+      ],
+      "stack_locals": [],
+      "stdout": ""
+    }
+  ]
+}
