@@ -212,8 +212,7 @@ class PyLogger(bdb.Bdb):
                            event=event_type,
                            func_name=tos[0].f_code.co_name,
                            globals=encoded_globals,
-                           ordered_globals=sorted(encoded_globals.keys()),
-                           stack_locals=encoded_stack_locals,
+                           locals=encoded_stack_locals,
                            stdout=get_user_stdout(tos[0]))
 
         # print trace_entry
