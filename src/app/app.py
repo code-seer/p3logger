@@ -1,16 +1,18 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import base64
 
 from logger import pylogger
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/visualizer', methods=["POST"])
 def user_code_logger():
     try:
         body = request.json
-        py_version = body.get("python_version")
+        py_version = body.get("py_version")
         user_code = base64.b64decode(body.get("user_code"))
         return jsonify(pylogger.run_logger(user_code))
     except AttributeError:
