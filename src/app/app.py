@@ -3,6 +3,7 @@ from flask_cors import CORS
 import base64
 
 from logger import pylogger
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -10,6 +11,7 @@ CORS(app)
 
 @app.route('/visualizer', methods=["POST"])
 def user_code_logger():
+    time.sleep(5)
     try:
         body = request.json
         py_version = body.get("py_version")
@@ -21,6 +23,24 @@ def user_code_logger():
         })
     except Exception as e:
         return jsonify(e.message), 500
+
+
+@app.route('/feedback', methods=["POST"])
+def user_feedback():
+    try:
+        body = request.json
+        name = body.get("name")
+        email = body.get("email")
+        feedback = body.get('feedback')
+        print "user feedback: ", name, email, feedback
+        return jsonify({"status": "OK"}), 200
+    except AttributeError:
+        return jsonify({
+            "error": "Unable to accept feedback. Sorry!"
+        })
+    except Exception as e:
+        return jsonify(e.message), 500
+
 
 
 if __name__ == "__main__":
