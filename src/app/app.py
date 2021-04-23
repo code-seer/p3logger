@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_mail import Mail, Message
 import base64
+import datetime
 
 from logger import pylogger
 
@@ -20,8 +21,8 @@ mail_settings = {
     "MAIL_PORT": 465,
     "MAIL_USE_TLS": False,
     "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": os.environ['EMAIL_USER'],
-    "MAIL_PASSWORD": os.environ['EMAIL_PASSWORD']
+    "MAIL_USERNAME": os.environ.get('EMAIL_USER'),
+    "MAIL_PASSWORD": os.environ.get('EMAIL_PASSWORD')
 }
 
 app.config.update(mail_settings)
@@ -69,6 +70,16 @@ def user_feedback():
         })
     except Exception as e:
         return jsonify(e.message), 500
+
+
+@app.route('/api/status', methods=["GET"])
+def status():
+    now = datetime.datetime.now()
+    response = {
+        "status": "UP",
+        "time": now.strftime('%Y-%m-%dT%H:%M:%S') + ('.%03d' % (now.microsecond / 10000))
+    }
+    return jsonify(response), 200
 
 
 if __name__ == "__main__":
