@@ -48,33 +48,6 @@ def filter_var_dict(d):
     return ret
 
 
-def encode_heap(encoded_globals):
-    """Encode global variables as heap objects by adding the REF key to
-    compound objects and keeping primitives the same"""
-    heap = {}
-    modified_globals = {}
-    for k, v in encoded_globals.items():
-        if type(v) == list:
-            heap_val = None
-            heap_key = None
-            if v[0] == 'CLASS' or v[0] == 'INSTANCE':
-                heap_key = str(v[2])
-                heap_val = [v[0], v[1]]
-                heap_val.extend(v[3:])
-                modified_globals[k] = ["REF", int(heap_key)]
-            else:
-                heap_key = str(v[1])
-                heap_val = [v[0]]
-                heap_val.extend(v[2:])
-            modified_globals[k] = ["REF", int(heap_key)]
-            heap[heap_key] = heap_val
-        else:
-            modified_globals[k] = v
-    # print heap
-    # print modified_globals
-    return modified_globals, heap
-
-
 def frame_debugger(frame, event_type):
     if frame:
         print "----------------------------------Frame-------------------------------------------------"
@@ -233,15 +206,13 @@ class PyLogger(bdb.Bdb):
         encoded_globals = {}
         for (k, v) in get_user_globals(tos[0]).items():
             encoded_globals[k] = self.encoder.encode(v, self.ignore_id)
-        encoded_globals, heap = encode_heap(encoded_globals)
+
         # frame_debugger(tos[0], event_type)
         trace_entry = dict(line=lineno,
                            event=event_type,
                            func_name=tos[0].f_code.co_name,
                            globals=encoded_globals,
-                           ordered_globals=sorted(encoded_globals.keys()),
-                           heap=heap,
-                           stack_locals=encoded_stack_locals,
+                           locals=encoded_stack_locals,
                            stdout=get_user_stdout(tos[0]))
 
         # print trace_entry
