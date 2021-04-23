@@ -9,12 +9,12 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/visualizer', methods=["POST"])
+@app.route('/api/visualizer', methods=["POST"])
 def user_code_logger():
-    time.sleep(5)
+    # time.sleep(5)
     try:
         body = request.json
-        py_version = body.get("py_version")
+        language = body.get("language")
         user_code = base64.b64decode(body.get("user_code"))
         return jsonify(pylogger.run_logger(user_code))
     except AttributeError:
@@ -25,7 +25,7 @@ def user_code_logger():
         return jsonify(e.message), 500
 
 
-@app.route('/feedback', methods=["POST"])
+@app.route('/api/feedback', methods=["POST"])
 def user_feedback():
     try:
         body = request.json
