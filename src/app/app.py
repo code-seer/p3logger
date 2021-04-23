@@ -1,5 +1,8 @@
+import os
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_mail import Mail, Message
 import base64
 
 from logger import pylogger
@@ -11,6 +14,29 @@ CORS(app, resources={r"/api/*": {"origins": [
     "http://learnet.io",
     "https://learnet.io",
 ]}})
+
+mail_settings = {
+    "MAIL_SERVER": 'smtp.gmail.com',
+    "MAIL_PORT": 465,
+    "MAIL_USE_TLS": False,
+    "MAIL_USE_SSL": True,
+    "MAIL_USERNAME": os.environ['EMAIL_USER'],
+    "MAIL_PASSWORD": os.environ['EMAIL_PASSWORD']
+}
+
+app.config.update(mail_settings)
+mail = Mail(app)
+
+
+def send_email(name=None, email=None, feedback=None):
+    with app.app_context():
+        msg = Message(subject="LearNet Feedback from " + name,
+                      sender=("Learnet.io", email),
+                      reply_to=(name, email),
+                      recipients=[os.environ['EMAIL_USER']],
+                      body=feedback)
+        mail.send(msg)
+        print "Feedback Submitted by " + email
 
 
 @app.route('/api/visualizer', methods=["POST"])
@@ -35,7 +61,7 @@ def user_feedback():
         name = body.get("name")
         email = body.get("email")
         feedback = body.get('feedback')
-        print "user feedback: ", name, email, feedback
+        send_email(name=name, email=email, feedback=feedback)
         return jsonify({"status": "OK"}), 200
     except AttributeError:
         return jsonify({
@@ -43,7 +69,6 @@ def user_feedback():
         })
     except Exception as e:
         return jsonify(e.message), 500
-
 
 
 if __name__ == "__main__":
