@@ -3,15 +3,18 @@ from flask_cors import CORS
 import base64
 
 from logger import pylogger
-import time
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": [
+    "http://localhost:5000",
+    "http://localhost:3000",
+    "http://learnet.io",
+    "https://learnet.io",
+]}})
 
 
 @app.route('/api/visualizer', methods=["POST"])
 def user_code_logger():
-    # time.sleep(5)
     try:
         body = request.json
         language = body.get("language")
