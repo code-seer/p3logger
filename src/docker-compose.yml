@@ -3,20 +3,24 @@ services:
   py27_logger:
     build: .
     container_name: py27_logger
+    hostname: "api.learnet.io"
     command: gunicorn --bind 0.0.0.0:5000 app.app:app
     restart: always
     labels:
-      - traefik.backend=py27_logger
-      - traefik.frontend.rule=Host:api.learnet.io
-      - traefik.docker.network=traefik_network
-      - traefik.port=5000
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:api.learnet.io"
+      - "traefik.port=5000"
+      - "traefik.backend=py27_logger"
+      - "traefik.docker.network=traefik_network"
+      - "traefik.frontend.entryPoints=http,https"
     networks:
       - traefik_network
-    ports:
-      - "5000:5000"
+#    ports:
+#      - "5000:5000"
     environment:
       - EMAIL_USER=learnet.io.user@gmail.com
       - EMAIL_PASSWORD=Moon-age-dream-1970
 
 networks:
   traefik_network:
+    name: custome_bridge_network
