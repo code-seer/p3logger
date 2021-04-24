@@ -9,8 +9,8 @@ import datetime
 from logger import pylogger
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": [
-    "http://localhost:5000",
+CORS(app, resources={r"/*": {"origins": [
+    "http://localhost",
     "http://localhost:3000",
     "http://learnet.io",
     "https://learnet.io",
@@ -40,7 +40,7 @@ def send_email(name=None, email=None, feedback=None):
         print "Feedback Submitted by " + email
 
 
-@app.route('/api/visualizer', methods=["POST"])
+@app.route('/visualizer', methods=["POST"])
 def user_code_logger():
     try:
         body = request.json
@@ -55,7 +55,7 @@ def user_code_logger():
         return jsonify(e.message), 500
 
 
-@app.route('/api/feedback', methods=["POST"])
+@app.route('/feedback', methods=["POST"])
 def user_feedback():
     try:
         body = request.json
@@ -72,7 +72,7 @@ def user_feedback():
         return jsonify(e.message), 500
 
 
-@app.route('/api/status', methods=["GET"])
+@app.route('/status', methods=["GET"])
 def status():
     now = datetime.datetime.now()
     response = {
