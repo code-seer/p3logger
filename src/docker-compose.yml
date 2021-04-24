@@ -22,4 +22,4 @@ services:
 networks:
   default:
     external:
-      name: traefik_network
+      name: traefik_traefik_network
