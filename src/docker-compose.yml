@@ -15,11 +15,11 @@ services:
       - "traefik.frontend.entryPoints=http,https"
     networks:
       - traefik_network
-#    ports:
-#      - "5000:5000"
     environment:
       - EMAIL_USER=learnet.io.user@gmail.com
       - EMAIL_PASSWORD=Moon-age-dream-1970
 
 networks:
-  traefik_network:
+  default:
+    external:
+      name: traefik_network
