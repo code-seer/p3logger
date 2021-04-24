@@ -14,7 +14,7 @@ services:
       - "traefik.docker.network=traefik_traefik_network"
       - "traefik.frontend.entryPoints=http,https"
     networks:
-      - traefik_network
+      - traefik_traefik_network
     environment:
       - EMAIL_USER=learnet.io.user@gmail.com
       - EMAIL_PASSWORD=Moon-age-dream-1970
