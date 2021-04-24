@@ -20,6 +20,5 @@ services:
       - EMAIL_PASSWORD=Moon-age-dream-1970
 
 networks:
-  default:
-    external:
-      name: traefik_network
+  traefik_network:
+    external: true
