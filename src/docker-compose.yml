@@ -11,10 +11,10 @@ services:
       - "traefik.frontend.rule=Host:api.learnet.io"
       - "traefik.port=5000"
       - "traefik.backend=py27_logger"
-      - "traefik.docker.network=traefik_traefik_network"
+      - "traefik.docker.network=traefik_network"
       - "traefik.frontend.entryPoints=http,https"
     networks:
-      - traefik_traefik_network
+      - traefik_network
     environment:
       - EMAIL_USER=learnet.io.user@gmail.com
       - EMAIL_PASSWORD=Moon-age-dream-1970
@@ -22,4 +22,4 @@ services:
 networks:
   default:
     external:
-      name: traefik_traefik_network
+      name: traefik_network
