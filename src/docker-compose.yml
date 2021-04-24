@@ -10,8 +10,6 @@ services:
       - traefik.frontend.rule=Host:api.learnet.io
       - traefik.docker.network=traefik_network
       - traefik.port=5000
-    ports:
-      - "5000:5000"
     environment:
       - EMAIL_USER=learnet.io.user@gmail.com
       - EMAIL_PASSWORD=Moon-age-dream-1970
