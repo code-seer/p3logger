@@ -11,7 +11,7 @@ services:
       - "traefik.frontend.rule=Host:api.learnet.io"
       - "traefik.port=5000"
       - "traefik.backend=py27_logger"
-      - "traefik.docker.network=traefik_network"
+      - "traefik.docker.network=traefik_traefik_network"
       - "traefik.frontend.entryPoints=http,https"
     networks:
       - traefik_network
