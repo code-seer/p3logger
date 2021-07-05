@@ -1,4 +1,4 @@
-# LearNet Software
+# CodeSeer Software
 
 # Given an arbitrary piece of Python data, encode it in such a manner
 # that it can be later encoded into JSON.

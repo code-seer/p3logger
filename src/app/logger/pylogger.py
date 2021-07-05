@@ -1,4 +1,4 @@
-# LearNet Software
+# CodeSeer Software
 
 import sys
 import bdb

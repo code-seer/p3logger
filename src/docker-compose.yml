@@ -3,12 +3,12 @@ services:
   py27_logger:
     build: .
     container_name: py27_logger
-    hostname: "api.learnet.io"
+    hostname: "api.codeseer.net"
     command: gunicorn --bind 0.0.0.0:5000 app.app:app
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:api.learnet.io"
+      - "traefik.frontend.rule=Host:api.codeseer.net"
       - "traefik.port=5000"
       - "traefik.backend=py27_logger"
       - "traefik.docker.network=traefik_network"

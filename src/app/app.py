@@ -12,8 +12,8 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": [
     "http://localhost",
     "http://localhost:3000",
-    "http://learnet.io",
-    "https://learnet.io",
+    "http://codeseer.net",
+    "https://codeseer.net",
 ]}})
 
 mail_settings = {
@@ -31,8 +31,8 @@ mail = Mail(app)
 
 def send_email(name=None, email=None, feedback=None):
     with app.app_context():
-        msg = Message(subject="LearNet Feedback from " + name,
-                      sender=("Learnet.io", email),
+        msg = Message(subject="CodeSeer Feedback from " + name,
+                      sender=("Codeseer.net", email),
                       reply_to=(name, email),
                       recipients=[os.environ['EMAIL_USER']],
                       body=feedback)
